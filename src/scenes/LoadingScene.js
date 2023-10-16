@@ -3,6 +3,7 @@ import fontPng from "../assets/font/font.png";
 import fontXml from "../assets/font/font.xml";
 import mainAttackImg from "../assets/spritesheets/MAIN_ATT.png";
 import mainMoveImg from "../assets/spritesheets/MAIN_MOVE.png";
+import mainBackgroundMusic from "../assets/sounds/MainBackgroundMusic.mp3";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -23,6 +24,9 @@ export default class LoadingScene extends Phaser.Scene {
             frameWidth: 422,
             frameHeight: 424,
         });
+
+        // AUDIOS
+        this.load.audio("mainBackgroundMusic", mainBackgroundMusic);
     }
 
     create() {
