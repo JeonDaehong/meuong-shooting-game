@@ -28,7 +28,7 @@ export default class MainScene extends Phaser.Scene {
             .setScrollFactor(0);
 
         this.add
-            .bitmapText(Config.width / 2, 100, "pixelFont", "Meuong Shooting Game!", 80)
+            .bitmapText(Config.width / 2, 110, "pixelFont", "Meuong Shooting Game!", 100)
             .setOrigin(0.5)
             .setTint(0xC7FFD0);
 
@@ -36,35 +36,45 @@ export default class MainScene extends Phaser.Scene {
             .sprite(Config.width / 2, (Config.height / 2) - 50, "mainMove")
             .setScale(0.8)
             .play("main_move");
-
         this.mainMoveFunction(mainMoveSprite);
+
+        let popupText = this.add
+            .bitmapText(Config.width / 2, Config.height / 2, "pixelFont", "You must clear the Hard Level\n\n      to play the Extra Level.", 50)
+            .setOrigin(0.5)
+            .setTint(0xFFF010);
+            
+        popupText.setDepth(50)
+        popupText.setOrigin(0.5);
+        popupText.setAlpha(0); // 초기에는 투명 상태로 시작
 
         new Button(
             Config.width / 2,
             Config.height / 2 + 130,
-            "Easy Level Play",
+            " Easy Level Play ",
             this,
             () => {
                 this.scene.start("stage1_easyScene")
                 this.buttonSound();
+                this.mainBackgroundMusic.stop();
             }
         );
 
         new Button(
             Config.width / 2,
             Config.height / 2 + 200,
-            "Hard Level Play",
+            " Hard Level Play ",
             this,
             () => {
                 this.scene.start("stage1_hardScene")
-                this.buttonSound()
+                this.buttonSound();
+                this.mainBackgroundMusic.stop();
             }
         );
 
         new Button(
             Config.width / 2,
             Config.height / 2 + 270,
-            "Extra Level Play",
+            " Extra Level Play ",
             this,
             () => { 
                     if (!extraButtonMessage) {
@@ -74,7 +84,7 @@ export default class MainScene extends Phaser.Scene {
                             duration: 500,
                         });
                         this.time.addEvent({
-                            delay: 3000,
+                            delay: 2000,
                             callback: () => {
                                 this.tweens.add({
                                     targets: [popupText],
@@ -90,16 +100,6 @@ export default class MainScene extends Phaser.Scene {
                     }
                 }
         );
-        
-        let popupText = this.add.text(Config.width / 2, Config.height / 2, "Extra Level은 Hard Level을\n\n 클리어 하셔야지만\n\n 플레이 가능합니다.", {
-            fontSize: "20px",
-            color: "#ffffff",
-            align: "center",
-        });
-        popupText.setDepth(50)
-        popupText.setOrigin(0.5);
-        popupText.setAlpha(0); // 초기에는 투명 상태로 시작
-
     }
 
     mainMoveFunction(mainMoveSprite) {
