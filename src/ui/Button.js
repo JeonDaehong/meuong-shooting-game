@@ -9,9 +9,18 @@ export default class Button extends Phaser.GameObjects.Text {
             .setStyle({ backgroundColor: "#3A7D46", fontSize: 20 })
             .setInteractive({ useHandCursor: true })
             .on("pointerdown", () => callback())
-            .on("pointerover", () => this.setStyle({ fill: "#000" }))
+            .on("pointerover", () => {
+                this.setStyle({ fill: "#000" });
+                this.playHoverSound(scene);
+            })
             .on("pointerout", () => this.setStyle({ fill: "#fff" }));
 
         scene.add.existing(this);
+    }
+
+    playHoverSound(scene) {
+        const hoverSound = scene.sound.add("buttonHoverSound");
+        hoverSound.play();
+        hoverSound.setVolume(0.2);
     }
 }

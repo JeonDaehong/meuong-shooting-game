@@ -4,8 +4,8 @@ import Stage1_EasyScene from './scenes/Stage1_EasyScene.js';
 import Stage1_HardScene from './scenes/Stage1_HardScene.js';
 
 const Config = {
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     backgroundColor: 0xFFFFFF,
     scene: [LoadingScene, MainScene, Stage1_EasyScene, Stage1_HardScene],
     pixelArt: true,

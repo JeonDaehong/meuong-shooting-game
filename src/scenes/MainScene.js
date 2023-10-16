@@ -41,23 +41,29 @@ export default class MainScene extends Phaser.Scene {
 
         new Button(
             Config.width / 2,
-            Config.height / 2 + 110,
+            Config.height / 2 + 130,
             "Easy Level Play",
             this,
-            () => this.scene.start("stage1_easyScene")
+            () => {
+                this.scene.start("stage1_easyScene")
+                this.buttonSound();
+            }
         );
 
         new Button(
             Config.width / 2,
-            Config.height / 2 + 170,
+            Config.height / 2 + 200,
             "Hard Level Play",
             this,
-            () => this.scene.start("stage1_hardScene")
+            () => {
+                this.scene.start("stage1_hardScene")
+                this.buttonSound()
+            }
         );
 
         new Button(
             Config.width / 2,
-            Config.height / 2 + 230,
+            Config.height / 2 + 270,
             "Extra Level Play",
             this,
             () => { 
@@ -80,6 +86,7 @@ export default class MainScene extends Phaser.Scene {
                             callbackScope: this,
                         });
                         extraButtonMessage = true;
+                        this.buttonSound();
                     }
                 }
         );
@@ -124,6 +131,9 @@ export default class MainScene extends Phaser.Scene {
         });
     }
 
-    createPopUp() {
+    buttonSound() {
+        this.buttonClickSound = this.sound.add("buttonClickSound");
+        this.buttonClickSound.play();
+        this.buttonClickSound.setVolume(0.2);
     }
 }

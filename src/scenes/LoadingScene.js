@@ -4,6 +4,8 @@ import fontXml from "../assets/font/font.xml";
 import mainAttackImg from "../assets/spritesheets/MAIN_ATT.png";
 import mainMoveImg from "../assets/spritesheets/MAIN_MOVE.png";
 import mainBackgroundMusic from "../assets/sounds/MainBackgroundMusic.mp3";
+import buttonHoverSound from "../assets/sounds/ButtonHoverSound.mp3";
+import buttonClickSound from "../assets/sounds/ButtonClickSound.mp3";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -27,6 +29,8 @@ export default class LoadingScene extends Phaser.Scene {
 
         // AUDIOS
         this.load.audio("mainBackgroundMusic", mainBackgroundMusic);
+        this.load.audio("buttonHoverSound", buttonHoverSound);
+        this.load.audio("buttonClickSound", buttonClickSound);
     }
 
     create() {
