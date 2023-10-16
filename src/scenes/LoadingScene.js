@@ -1,11 +1,8 @@
 import Phaser from "phaser";
-
 import fontPng from "../assets/font/font.png";
 import fontXml from "../assets/font/font.xml";
-
 import mainAttackImg from "../assets/spritesheets/MAIN_ATT.png";
 import mainMoveImg from "../assets/spritesheets/MAIN_MOVE.png";
-import player from "../assets/spritesheets/player.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -19,16 +16,12 @@ export default class LoadingScene extends Phaser.Scene {
 
         // SPRITESHEETS
         this.load.spritesheet("mainAttack", mainAttackImg, {
-            frameWidth: 32,
-            frameHeight: 36,
+            frameWidth: 422,
+            frameHeight: 424,
         });
         this.load.spritesheet("mainMove", mainMoveImg, {
-            frameWidth: 32,
-            frameHeight: 36,
-        });
-        this.load.spritesheet("player", player, {
-            frameWidth: 32,
-            frameHeight: 36,
+            frameWidth: 422,
+            frameHeight: 424,
         });
     }
 
@@ -40,19 +33,13 @@ export default class LoadingScene extends Phaser.Scene {
         this.anims.create({
             key: "main_attack",
             frames: this.anims.generateFrameNumbers("mainAttack"),
-            frameRate: 12,
+            frameRate: 18,
             repeat: -1,
         });
         this.anims.create({
             key: "main_move",
             frames: this.anims.generateFrameNumbers("mainMove"),
-            frameRate: 12,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: "player",
-            frames: this.anims.generateFrameNumbers("player"),
-            frameRate: 12,
+            frameRate: 18,
             repeat: -1,
         });
 
