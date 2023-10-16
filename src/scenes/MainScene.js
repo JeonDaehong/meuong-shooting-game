@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import Config from "../Config";
+import Button from "../ui/Button";
 
 export default class MainScene extends Phaser.Scene {
 
@@ -17,16 +18,66 @@ export default class MainScene extends Phaser.Scene {
             .setScrollFactor(0);
 
         this.add
-            .bitmapText(Config.width / 2, 150, "pixelFont", "Meuong Shooting Game!", 80)
+            .bitmapText(Config.width / 2, 100, "pixelFont", "Meuong Shooting Game!", 80)
             .setOrigin(0.5)
             .setTint(0xC7FFD0);
 
         mainMoveSprite = this.add
-            .sprite(Config.width / 2, (Config.height / 2) + 20, "mainMove")
+            .sprite(Config.width / 2, (Config.height / 2) - 50, "mainMove")
             .setScale(0.8)
             .play("main_move");
 
         this.mainMoveFunction(mainMoveSprite);
+
+        new Button(
+            Config.width / 2,
+            Config.height / 2 + 110,
+            "Easy Level Play",
+            this,
+            () => this.scene.start("playGame")
+        );
+
+        new Button(
+            Config.width / 2,
+            Config.height / 2 + 170,
+            "Hard Level Play",
+            this,
+            () => this.scene.start("playGame")
+        );
+
+        new Button(
+            Config.width / 2,
+            Config.height / 2 + 230,
+            "Extra Level Play",
+            this,
+            () => { this.tweens.add({
+                        targets: [popupText],
+                        alpha: 1,
+                        duration: 500,
+                    });
+                    this.time.addEvent({
+                        delay: 3000, // 5초 (5000 밀리초)
+                        callback: () => {
+                            this.tweens.add({
+                                targets: [popupText],
+                                alpha: 0,
+                                duration: 500,
+                            });
+                        },
+                        callbackScope: this,
+                    });
+                }
+        );
+
+        
+        let popupText = this.add.text(Config.width / 2, Config.height / 2, "Extra Level은 Hard Level을\n\n 클리어 하셔야지만\n\n 플레이 가능합니다.", {
+            fontSize: "20px",
+            color: "#ffffff",
+            align: "center",
+        });
+        popupText.setDepth(50)
+        popupText.setOrigin(0.5);
+        popupText.setAlpha(0); // 초기에는 투명 상태로 시작
 
     }
 
@@ -36,8 +87,9 @@ export default class MainScene extends Phaser.Scene {
             callback: () => {
                 mainMoveSprite.destroy();
                 mainMoveSprite = this.add
-                                    .sprite(Config.width / 2, (Config.height / 2) + 20, "mainMove")
+                                    .sprite(Config.width / 2, (Config.height / 2) - 50, "mainMove")
                                     .setScale(0.8)
+                                    .setDepth(20)
                                     .play("main_move");
             },
             callbackScope: this,
@@ -48,12 +100,16 @@ export default class MainScene extends Phaser.Scene {
             callback: () => {
                 mainMoveSprite.destroy();
                 mainMoveSprite = this.add
-                                    .sprite(Config.width / 2, (Config.height / 2) + 20, "mainAttack")
+                                    .sprite(Config.width / 2, (Config.height / 2) - 50, "mainAttack")
                                     .setScale(0.8)
+                                    .setDepth(20)
                                     .play("main_attack");
             },
             callbackScope: this,
             loop: true // 반복
         });
+    }
+
+    createPopUp() {
     }
 }
