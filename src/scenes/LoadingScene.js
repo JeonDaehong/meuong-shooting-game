@@ -94,6 +94,22 @@ export default class LoadingScene extends Phaser.Scene {
             repeat: -1,
         });
         this.anims.create({
+            key: "player_idleUp",
+            frames: this.anims.generateFrameNumbers("playerMoveUp", {
+                start: 0,
+                end: 0,}),
+            frameRate: 12,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "player_idleDown",
+            frames: this.anims.generateFrameNumbers("playerMoveDown", {
+                start: 0,
+                end: 0,}),
+            frameRate: 12,
+            repeat: -1,
+        });
+        this.anims.create({
             key: "player_moveDown",
             frames: this.anims.generateFrameNumbers("playerMoveDown"),
             frameRate: 18,
@@ -124,7 +140,7 @@ export default class LoadingScene extends Phaser.Scene {
             repeat: -1,
         });
         this.anims.create({
-            key: "player_AttackUp",
+            key: "player_attackUp",
             frames: this.anims.generateFrameNumbers("playerAttackUp"),
             frameRate: 18,
             repeat: -1,
