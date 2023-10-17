@@ -14,7 +14,8 @@ import playerMoveUpImg from "../assets/spritesheets/playerMoveUp.png";
 import playerAttackDownImg from "../assets/spritesheets/playerAttackDown.png";
 import playerAttackLeftImg from "../assets/spritesheets/playerAttackLeft.png";
 import playerAttackUpImg from "../assets/spritesheets/playerAttackUp.png";
-import stage1BgImg from "../assets/images/Stage1_Background.png";
+import stage1BgImg1 from "../assets/images/Stage1_Background.png";
+import stage1BgImg2 from "../assets/images/Stage1_Background2.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -24,7 +25,8 @@ export default class LoadingScene extends Phaser.Scene {
     preload() {
 
         // BackGround
-        this.load.image("stage1BgImg", stage1BgImg);
+        this.load.image("stage1BgImg1", stage1BgImg1);
+        this.load.image("stage1BgImg2", stage1BgImg2);
 
         // FONT
         this.load.bitmapFont("pixelFont", fontPng, fontXml);

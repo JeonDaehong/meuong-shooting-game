@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import Player from "../characters/Player";
 import Config from "../Config";
-import { setBackground } from "../utils/backgroundManager";
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -28,7 +27,8 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         });
 
         // BackGround
-        setBackground(this, "stage1BgImg");
+        const backgroundImage2 = this.add.image(Config.width/2, (Config.height/2) - 150, 'stage1BgImg2');
+        const backgroundImage1 = this.add.image(Config.width/2, Config.height/2, 'stage1BgImg1');
     }
 
     update() {
