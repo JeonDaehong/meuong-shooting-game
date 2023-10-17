@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Player from "../characters/Player";
 import Config from "../Config";
+import { setBackground } from "../utils/backgroundManager";
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -11,6 +12,23 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         this.m_player = new Player(this);
         this.m_player.play("player_idleLeft");
 		this.m_cursorKeys = this.input.keyboard.createCursorKeys();
+
+        this.add.graphics()
+            .fillStyle(0x000000)
+            .fillRect(0, 0, Config.width, Config.height)
+            .setScrollFactor(0);
+
+        // Sound
+        this.sound.pauseOnBlur = false;
+        this.mainBackgroundMusic = this.sound.add("Stage1_Music");
+        this.mainBackgroundMusic.play();
+        this.mainBackgroundMusic.setVolume(0.1);
+        this.mainBackgroundMusic.on('complete', () => {
+            this.mainBackgroundMusic.play();
+        });
+
+        // BackGround
+        setBackground(this, "stage1BgImg");
     }
 
     update() {
@@ -22,7 +40,7 @@ export default class Stage1_EasyScene extends Phaser.Scene {
 
         const thisSceneMaxLeftCoordinate = 30;
         const thisSceneMaxRightCoordinate = 1250;
-        const thisSceneMaxUpCoordinate = 470;
+        const thisSceneMaxUpCoordinate = 430;
         const thisSceneMaxDownCoordinate = 665;
 
         // Attack

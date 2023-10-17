@@ -6,6 +6,7 @@ import mainMoveImg from "../assets/spritesheets/MAIN_MOVE.png";
 import mainBackgroundMusic from "../assets/sounds/MainBackgroundMusic.mp3";
 import buttonHoverSound from "../assets/sounds/ButtonHoverSound.mp3";
 import buttonClickSound from "../assets/sounds/ButtonClickSound.mp3";
+import Stage1_Music from "../assets/sounds/1Stage_Music.mp3";
 import playerIdleLeftImg from "../assets/spritesheets/playerIdleLeft.png";
 import playerMoveDownImg from "../assets/spritesheets/playerMoveDown.png";
 import playerMoveLeftImg from "../assets/spritesheets/playerMoveLeft.png";
@@ -13,6 +14,7 @@ import playerMoveUpImg from "../assets/spritesheets/playerMoveUp.png";
 import playerAttackDownImg from "../assets/spritesheets/playerAttackDown.png";
 import playerAttackLeftImg from "../assets/spritesheets/playerAttackLeft.png";
 import playerAttackUpImg from "../assets/spritesheets/playerAttackUp.png";
+import stage1BgImg from "../assets/images/Stage1_Background.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -20,6 +22,9 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     preload() {
+
+        // BackGround
+        this.load.image("stage1BgImg", stage1BgImg);
 
         // FONT
         this.load.bitmapFont("pixelFont", fontPng, fontXml);
@@ -66,6 +71,7 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.audio("mainBackgroundMusic", mainBackgroundMusic);
         this.load.audio("buttonHoverSound", buttonHoverSound);
         this.load.audio("buttonClickSound", buttonClickSound);
+        this.load.audio("Stage1_Music", Stage1_Music);
     }
 
     create() {
