@@ -7,6 +7,7 @@ import mainBackgroundMusic from "../assets/sounds/MainBackgroundMusic.mp3";
 import buttonHoverSound from "../assets/sounds/ButtonHoverSound.mp3";
 import buttonClickSound from "../assets/sounds/ButtonClickSound.mp3";
 import Stage1_Music from "../assets/sounds/1Stage_Music.mp3";
+import PlayerAttackSound from "../assets/sounds/PlayerAttackSound.mp3";
 import playerIdleLeftImg from "../assets/spritesheets/playerIdleLeft.png";
 import playerMoveDownImg from "../assets/spritesheets/playerMoveDown.png";
 import playerMoveLeftImg from "../assets/spritesheets/playerMoveLeft.png";
@@ -16,6 +17,9 @@ import playerAttackLeftImg from "../assets/spritesheets/playerAttackLeft.png";
 import playerAttackUpImg from "../assets/spritesheets/playerAttackUp.png";
 import stage1BgImg1 from "../assets/images/Stage1_Background.png";
 import stage1BgImg2 from "../assets/images/Stage1_Background2.png";
+import playerBulletImg from "../assets/images/PlayerAttack1.png";
+import pauseSound from "../assets/sounds/PauseSound.mp3";
+import unPauseSound from "../assets/sounds/UnPauseSound.mp3";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -27,6 +31,9 @@ export default class LoadingScene extends Phaser.Scene {
         // BackGround
         this.load.image("stage1BgImg1", stage1BgImg1);
         this.load.image("stage1BgImg2", stage1BgImg2);
+
+        // Bullet
+        this.load.image("playerBullet", playerBulletImg);
 
         // FONT
         this.load.bitmapFont("pixelFont", fontPng, fontXml);
@@ -74,6 +81,9 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.audio("buttonHoverSound", buttonHoverSound);
         this.load.audio("buttonClickSound", buttonClickSound);
         this.load.audio("Stage1_Music", Stage1_Music);
+        this.load.audio("PlayerAttackSound", PlayerAttackSound);
+        this.load.audio("pauseSound", pauseSound);
+        this.load.audio("unPauseSound", unPauseSound);
     }
 
     create() {
@@ -98,7 +108,7 @@ export default class LoadingScene extends Phaser.Scene {
         this.anims.create({
             key: "player_idleLeft",
             frames: this.anims.generateFrameNumbers("playerIdleLeft"),
-            frameRate: 12,
+            frameRate: 15,
             repeat: -1,
         });
         this.anims.create({
@@ -106,7 +116,7 @@ export default class LoadingScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("playerMoveUp", {
                 start: 0,
                 end: 0,}),
-            frameRate: 12,
+            frameRate: 15,
             repeat: -1,
         });
         this.anims.create({
@@ -114,43 +124,43 @@ export default class LoadingScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("playerMoveDown", {
                 start: 0,
                 end: 0,}),
-            frameRate: 12,
+            frameRate: 15,
             repeat: -1,
         });
         this.anims.create({
             key: "player_moveDown",
             frames: this.anims.generateFrameNumbers("playerMoveDown"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
         this.anims.create({
             key: "player_moveLeft",
             frames: this.anims.generateFrameNumbers("playerMoveLeft"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
         this.anims.create({
             key: "player_moveUp",
             frames: this.anims.generateFrameNumbers("playerMoveUp"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
         this.anims.create({
             key: "player_attackDown",
             frames: this.anims.generateFrameNumbers("playerAttackDown"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
         this.anims.create({
             key: "player_attackLeft",
             frames: this.anims.generateFrameNumbers("playerAttackLeft"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
         this.anims.create({
             key: "player_attackUp",
             frames: this.anims.generateFrameNumbers("playerAttackUp"),
-            frameRate: 18,
+            frameRate: 30,
             repeat: -1,
         });
 

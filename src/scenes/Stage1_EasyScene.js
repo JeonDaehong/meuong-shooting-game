@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Player from "../characters/Player";
 import Config from "../Config";
+import { pause } from "../utils/pauseManager";
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -8,6 +9,10 @@ export default class Stage1_EasyScene extends Phaser.Scene {
     }
 
     create() {
+
+        const canvas = this.sys.canvas;
+        canvas.style.cursor = "none";
+
         this.m_player = new Player(this);
         this.m_player.play("player_idleLeft");
 		this.m_cursorKeys = this.input.keyboard.createCursorKeys();
@@ -25,10 +30,30 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         this.mainBackgroundMusic.on('complete', () => {
             this.mainBackgroundMusic.play();
         });
+        this.m_pauseInSound = this.sound.add("pauseSound");
+        this.m_pauseOutSound = this.sound.add("unPauseSound");
+
+        // Player Attack
+        this.m_weaponDynamic = this.add.group();
+        this.m_weaponStatic = this.add.group();
+        this.m_attackEvents = {};
 
         // BackGround
         const backgroundImage2 = this.add.image(Config.width/2, (Config.height/2) - 150, 'stage1BgImg2');
         const backgroundImage1 = this.add.image(Config.width/2, Config.height/2, 'stage1BgImg1');
+
+        // KeyState
+        this.prevLeftKeyState = false;
+        this.prevRightKeyState = false;
+        this.prevDownKeyState = false;
+        this.prevUpKeyState = false;
+        
+        // Pause
+        this.input.keyboard.on(
+            "keydown-ESC",
+            () => { pause(this, "pause"); },
+            this
+        );
     }
 
     update() {
@@ -73,41 +98,94 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         }
 
         // Move
+        let isAnyKeyActive = false;
+
         if (this.m_cursorKeys.left.isDown) {
-            this.m_player.currentDirection = 1;
-            if (!this.m_player.m_moving) {
-                this.m_player.play("player_moveLeft");
-            }
-            this.m_player.m_moving = true;
-        } else if (this.m_cursorKeys.right.isDown) {
-            this.m_player.currentDirection = 2;
-            if (!this.m_player.m_moving) {
-                this.m_player.play("player_moveLeft");
-            }
-            this.m_player.m_moving = true;
-        } else if (this.m_cursorKeys.up.isDown) {
-            this.m_player.currentDirection = 3;
-            if (!this.m_player.m_moving) {
-                this.m_player.play("player_moveUp");
-            }
-            this.m_player.m_moving = true;
-        } else if (this.m_cursorKeys.down.isDown) {
-            this.m_player.currentDirection = 4;
-            if (!this.m_player.m_moving) {
-                this.m_player.play("player_moveDown");
-            }
-            this.m_player.m_moving = true;
-        } else {
-            if (this.m_player.m_moving) {
-                if ( this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
-                    this.m_player.play("player_idleLeft");
-                } else if ( this.m_player.currentDirection == 3) {
-                    this.m_player.play("player_idleUp");
-                } else if ( this.m_player.currentDirection == 4) {
-                    this.m_player.play("player_idleDown");
+            if((this.prevUpKeyState === this.prevDownKeyState) && this.prevLeftKeyState){
+                this.m_player.currentDirection = 1;
+                if(this.m_player.m_attack){
+                    if(this.m_player.anims.currentAnim.key !== 'player_attackLeft')
+                        this.m_player.play("player_attackLeft");
                 }
-                this.m_player.m_moving = false;
+                else{
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                }
+                this.m_player.m_moving = true;
+                isAnyKeyActive = true;
             }
+        }
+        if (this.m_cursorKeys.right.isDown) {
+            if((this.prevUpKeyState === this.prevDownKeyState) && this.prevRightKeyState){
+                this.m_player.currentDirection = 2;
+                if(this.m_player.m_attack){
+                    if(this.m_player.anims.currentAnim.key !== 'player_attackLeft')
+                        this.m_player.play("player_attackLeft");
+                }
+                else{
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                }
+                this.m_player.m_moving = true;
+                isAnyKeyActive = true;
+            }
+        } 
+        if (this.m_cursorKeys.up.isDown) {
+            this.m_player.currentDirection = 3;
+            if(this.m_player.m_attack){
+                if(this.m_player.anims.currentAnim.key !== 'player_attackUp')
+                    this.m_player.play("player_attackUp");
+            }
+            else{
+                if (this.prevLeftKeyState && this.m_cursorKeys.left.isDown) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                } else if (this.prevRightKeyState && this.m_cursorKeys.right.isDown) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                }else {
+                    if((this.prevRightKeyState === this.prevLeftKeyState) && this.prevUpKeyState){
+                        if(this.m_player.anims.currentAnim.key !== 'player_moveUp')
+                            this.m_player.play("player_moveUp");
+                    }
+                }
+            }
+            this.m_player.m_moving = true;
+            isAnyKeyActive = true;
+        }
+        if (this.m_cursorKeys.down.isDown) {
+            this.m_player.currentDirection = 4;
+            if(this.m_player.m_attack){
+                if(this.m_player.anims.currentAnim.key !== 'player_attackDown')
+                    this.m_player.play("player_attackDown");
+            }
+            else{
+                if (this.prevLeftKeyState && this.m_cursorKeys.left.isDown) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                } else if (this.prevRightKeyState && this.m_cursorKeys.right.isDown) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
+                        this.m_player.play("player_moveLeft");
+                }else {
+                    if((this.prevRightKeyState === this.prevLeftKeyState) && this.prevDownKeyState){
+                        if(this.m_player.anims.currentAnim.key !== 'player_moveDown')
+                            this.m_player.play("player_moveDown");
+                    }
+                }
+            }
+            this.m_player.m_moving = true;
+            isAnyKeyActive = true;
+        }
+
+        if (!isAnyKeyActive && this.m_player.m_moving) {
+            if (this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
+                this.m_player.play("player_idleLeft");
+            } else if (this.m_player.currentDirection == 3) {
+                this.m_player.play("player_idleUp");
+            } else if (this.m_player.currentDirection == 4) {
+                this.m_player.play("player_idleDown");
+            }
+            this.m_player.m_moving = false;
         }
 
         let vector = [0, 0];
@@ -128,5 +206,10 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         }
 
         this.m_player.move(vector);
+
+        this.prevLeftKeyState = this.m_cursorKeys.left.isDown;
+        this.prevRightKeyState = this.m_cursorKeys.right.isDown;
+        this.prevDownKeyState = this.m_cursorKeys.down.isDown;
+        this.prevUpKeyState = this.m_cursorKeys.up.isDown;
     }
 }
