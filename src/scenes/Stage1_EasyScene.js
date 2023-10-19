@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Player from "../characters/Player";
 import Config from "../Config";
 import { pause } from "../utils/pauseManager";
+import Stage1_Boss from '../characters/Stage1_Boss';
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -16,6 +17,9 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         this.m_player = new Player(this);
         this.m_player.play("player_idleLeft");
 		this.m_cursorKeys = this.input.keyboard.createCursorKeys();
+
+        this.boss = new Stage1_Boss(this);
+        this.boss.play("stage1_boss_1phase_idle");
 
         this.add.graphics()
             .fillStyle(0x000000)
@@ -40,7 +44,7 @@ export default class Stage1_EasyScene extends Phaser.Scene {
 
         // BackGround
         const backgroundImage2 = this.add.image(Config.width/2, (Config.height/2) - 150, 'stage1BgImg2');
-        const backgroundImage1 = this.add.image(Config.width/2, Config.height/2, 'stage1BgImg1');
+        const backgroundImage1 = this.add.image(Config.width/2, (Config.height/2) + 70, 'stage1BgImg1');
 
         // KeyState
         this.prevLeftKeyState = false;
@@ -65,7 +69,7 @@ export default class Stage1_EasyScene extends Phaser.Scene {
 
         const thisSceneMaxLeftCoordinate = 30;
         const thisSceneMaxRightCoordinate = 1250;
-        const thisSceneMaxUpCoordinate = 430;
+        const thisSceneMaxUpCoordinate = 500;
         const thisSceneMaxDownCoordinate = 665;
 
         // Attack

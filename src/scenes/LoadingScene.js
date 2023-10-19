@@ -20,6 +20,7 @@ import stage1BgImg2 from "../assets/images/Stage1_Background2.png";
 import playerBulletImg from "../assets/images/PlayerAttack1.png";
 import pauseSound from "../assets/sounds/PauseSound.mp3";
 import unPauseSound from "../assets/sounds/UnPauseSound.mp3";
+import stage1BossPhase1IdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_Idle.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -74,6 +75,10 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.spritesheet("playerAttackUp", playerAttackUpImg, {
             frameWidth: 422,
             frameHeight: 424,
+        });
+        this.load.spritesheet("stage1BossPhase1Idle", stage1BossPhase1IdleImg, {
+            frameWidth: 360,
+            frameHeight: 348,
         });
 
         // AUDIOS
@@ -161,6 +166,14 @@ export default class LoadingScene extends Phaser.Scene {
             key: "player_attackUp",
             frames: this.anims.generateFrameNumbers("playerAttackUp"),
             frameRate: 30,
+            repeat: -1,
+        });
+
+        // Boss
+        this.anims.create({
+            key: "stage1_boss_1phase_idle",
+            frames: this.anims.generateFrameNumbers("stage1BossPhase1Idle"),
+            frameRate: 20,
             repeat: -1,
         });
 
