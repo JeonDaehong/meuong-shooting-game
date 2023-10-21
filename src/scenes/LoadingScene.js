@@ -21,6 +21,8 @@ import playerBulletImg from "../assets/images/PlayerAttack1.png";
 import pauseSound from "../assets/sounds/PauseSound.mp3";
 import unPauseSound from "../assets/sounds/UnPauseSound.mp3";
 import stage1BossPhase1IdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_Idle.png";
+import stage1BossPhase1LeftHandIdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_LeftHand_Idle.png";
+import stage1BossPhase1RightHandIdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_RightHand_Idle.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -80,6 +82,15 @@ export default class LoadingScene extends Phaser.Scene {
             frameWidth: 360,
             frameHeight: 348,
         });
+        this.load.spritesheet("stage1BossPhase1LeftHandIdle", stage1BossPhase1LeftHandIdleImg, {
+            frameWidth: 212,
+            frameHeight: 216,
+        });
+        this.load.spritesheet("stage1BossPhase1RightHandIdle", stage1BossPhase1RightHandIdleImg, {
+            frameWidth: 212,
+            frameHeight: 216,
+        });
+
 
         // AUDIOS
         this.load.audio("mainBackgroundMusic", mainBackgroundMusic);
@@ -173,6 +184,18 @@ export default class LoadingScene extends Phaser.Scene {
         this.anims.create({
             key: "stage1_boss_1phase_idle",
             frames: this.anims.generateFrameNumbers("stage1BossPhase1Idle"),
+            frameRate: 20,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "stage1_boss_1phase_leftHand_idle",
+            frames: this.anims.generateFrameNumbers("stage1BossPhase1LeftHandIdle"),
+            frameRate: 20,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "stage1_boss_1phase_rightHand_idle",
+            frames: this.anims.generateFrameNumbers("stage1BossPhase1RightHandIdle"),
             frameRate: 20,
             repeat: -1,
         });

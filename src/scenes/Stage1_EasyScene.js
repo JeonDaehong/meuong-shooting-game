@@ -3,6 +3,7 @@ import Player from "../characters/Player";
 import Config from "../Config";
 import { pause } from "../utils/pauseManager";
 import Stage1_Boss from '../characters/Stage1_Boss';
+import Stage1_Boss_Hands from '../characters/Stage1_Boss_Hands';
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -20,6 +21,10 @@ export default class Stage1_EasyScene extends Phaser.Scene {
 
         this.boss = new Stage1_Boss(this);
         this.boss.play("stage1_boss_1phase_idle");
+        this.bossLeftHand = new Stage1_Boss_Hands(this, (Config.width / 2) - 180, (Config.height / 2) - 200);
+        this.bossLeftHand.play("stage1_boss_1phase_leftHand_idle");
+        this.bossRightHand = new Stage1_Boss_Hands(this, (Config.width / 2) + 160, (Config.height / 2) - 200);
+        this.bossRightHand.play("stage1_boss_1phase_rightHand_idle");
 
         this.add.graphics()
             .fillStyle(0x000000)
