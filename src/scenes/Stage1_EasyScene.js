@@ -50,12 +50,6 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         // BackGround
         const backgroundImage2 = this.add.image(Config.width/2, (Config.height/2) - 150, 'stage1BgImg2');
         const backgroundImage1 = this.add.image(Config.width/2, (Config.height/2) + 70, 'stage1BgImg1');
-
-        // KeyState
-        this.prevLeftKeyState = false;
-        this.prevRightKeyState = false;
-        this.prevDownKeyState = false;
-        this.prevUpKeyState = false;
         
         // Pause
         this.input.keyboard.on(
@@ -77,124 +71,115 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         const thisSceneMaxUpCoordinate = 500;
         const thisSceneMaxDownCoordinate = 665;
 
-        // Attack
-        if (this.m_cursorKeys.space.isDown) {
-            if ( this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
-                if (!this.m_player.m_attack) {
-                    this.m_player.play("player_attackLeft");
+        let keysPressed = [
+            this.m_cursorKeys.space.isDown,
+            this.m_cursorKeys.left.isDown,
+            this.m_cursorKeys.right.isDown,
+            this.m_cursorKeys.up.isDown,
+            this.m_cursorKeys.down.isDown
+        ];
+        
+        let totalKeysPressed = keysPressed.filter(Boolean).length;
+
+        switch(true){
+            case this.m_cursorKeys.space.isDown:
+                if (totalKeysPressed !== 1) {
+                    if (this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
+                        if(this.m_player.anims.currentAnim.key !== 'player_idleLeft')
+                            this.m_player.play("player_idleLeft");
+                    } else if (this.m_player.currentDirection == 3) {
+                        if(this.m_player.anims.currentAnim.key !== 'player_idleUp')
+                            this.m_player.play("player_idleUp");
+                    } else if (this.m_player.currentDirection == 4) {
+                        if(this.m_player.anims.currentAnim.key !== 'player_idleDown')
+                            this.m_player.play("player_idleDown");
+                    }
+                    return;
                 }
-            } else if ( this.m_player.currentDirection == 3) {
-                if (!this.m_player.m_attack) {
-                    this.m_player.play("player_attackUp");
-                }
-            } else if ( this.m_player.currentDirection == 4) {
-                if (!this.m_player.m_attack) {
-                    this.m_player.play("player_attackDown");
-                }
-            }
-            this.m_player.m_attack = true;
-        } else {
-            if (this.m_player.m_attack) {
+                this.m_player.m_attack = true;
+                this.m_player.m_moving = false;
                 if ( this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
-                    this.m_player.play("player_idleLeft");
-                } else if ( this.m_player.currentDirection == 3) {
-                    this.m_player.play("player_idleUp");
-                } else if ( this.m_player.currentDirection == 4) {
-                    this.m_player.play("player_idleDown");
+                    if(this.m_player.anims.currentAnim.key !== 'player_attackLeft'){
+                        this.m_player.play("player_attackLeft");
+                    }
                 }
-                this.m_player.m_attack = false;
-            }
-        }
-
-        // Move
-        let isAnyKeyActive = false;
-
-        if (this.m_cursorKeys.left.isDown) {
-            if((this.prevUpKeyState === this.prevDownKeyState) && this.prevLeftKeyState){
+                else if ( this.m_player.currentDirection == 3){
+                    if(this.m_player.anims.currentAnim.key !== 'player_attackUp'){
+                        this.m_player.play("player_attackUp");
+                    }
+                }
+                else if(this.m_player.currentDirection == 4){
+                    if(this.m_player.anims.currentAnim.key !== 'player_attackDown'){
+                        this.m_player.play("player_attackDown");
+                    }
+                }
+                break;
+            case this.m_cursorKeys.left.isDown:
+                if (totalKeysPressed !== 1) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleLeft'){
+                        this.m_player.play("player_idleLeft");
+                    }
+                    return;
+                }
                 this.m_player.currentDirection = 1;
-                if(this.m_player.m_attack){
-                    if(this.m_player.anims.currentAnim.key !== 'player_attackLeft')
-                        this.m_player.play("player_attackLeft");
-                }
-                else{
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                }
                 this.m_player.m_moving = true;
-                isAnyKeyActive = true;
-            }
-        }
-        if (this.m_cursorKeys.right.isDown) {
-            if((this.prevUpKeyState === this.prevDownKeyState) && this.prevRightKeyState){
+                this.m_player.m_attack = false;
+                if(this.m_player.anims.currentAnim.key !== 'player_moveLeft'){
+                    this.m_player.play("player_moveLeft");
+                }
+                break;
+            case this.m_cursorKeys.right.isDown:
+                if (totalKeysPressed !== 1) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleLeft')
+                        this.m_player.play("player_idleLeft");
+                    return;
+                }
                 this.m_player.currentDirection = 2;
-                if(this.m_player.m_attack){
-                    if(this.m_player.anims.currentAnim.key !== 'player_attackLeft')
-                        this.m_player.play("player_attackLeft");
-                }
-                else{
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                }
                 this.m_player.m_moving = true;
-                isAnyKeyActive = true;
-            }
-        } 
-        if (this.m_cursorKeys.up.isDown) {
-            this.m_player.currentDirection = 3;
-            if(this.m_player.m_attack){
-                if(this.m_player.anims.currentAnim.key !== 'player_attackUp')
-                    this.m_player.play("player_attackUp");
-            }
-            else{
-                if (this.prevLeftKeyState && this.m_cursorKeys.left.isDown) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                } else if (this.prevRightKeyState && this.m_cursorKeys.right.isDown) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                }else {
-                    if((this.prevRightKeyState === this.prevLeftKeyState) && this.prevUpKeyState){
-                        if(this.m_player.anims.currentAnim.key !== 'player_moveUp')
-                            this.m_player.play("player_moveUp");
-                    }
+                this.m_player.m_attack = false;
+                if(this.m_player.anims.currentAnim.key !== 'player_moveLeft'){
+                    this.m_player.play("player_moveLeft");
                 }
-            }
-            this.m_player.m_moving = true;
-            isAnyKeyActive = true;
-        }
-        if (this.m_cursorKeys.down.isDown) {
-            this.m_player.currentDirection = 4;
-            if(this.m_player.m_attack){
-                if(this.m_player.anims.currentAnim.key !== 'player_attackDown')
-                    this.m_player.play("player_attackDown");
-            }
-            else{
-                if (this.prevLeftKeyState && this.m_cursorKeys.left.isDown) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                } else if (this.prevRightKeyState && this.m_cursorKeys.right.isDown) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_moveLeft')
-                        this.m_player.play("player_moveLeft");
-                }else {
-                    if((this.prevRightKeyState === this.prevLeftKeyState) && this.prevDownKeyState){
-                        if(this.m_player.anims.currentAnim.key !== 'player_moveDown')
-                            this.m_player.play("player_moveDown");
+                break;
+            case this.m_cursorKeys.up.isDown:
+                if (totalKeysPressed !== 1) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleUp'){
+                        this.m_player.play("player_idleUp");
                     }
+                    return;
                 }
-            }
-            this.m_player.m_moving = true;
-            isAnyKeyActive = true;
-        }
-
-        if (!isAnyKeyActive && this.m_player.m_moving) {
-            if (this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
-                this.m_player.play("player_idleLeft");
-            } else if (this.m_player.currentDirection == 3) {
-                this.m_player.play("player_idleUp");
-            } else if (this.m_player.currentDirection == 4) {
-                this.m_player.play("player_idleDown");
-            }
-            this.m_player.m_moving = false;
+                this.m_player.currentDirection = 3;
+                this.m_player.m_moving = true;
+                this.m_player.m_attack = false;
+                if(this.m_player.anims.currentAnim.key !== 'player_moveUp'){
+                    this.m_player.play("player_moveUp");
+                }
+                break;
+            case this.m_cursorKeys.down.isDown:
+                if (totalKeysPressed !== 1) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleDown')
+                        this.m_player.play("player_idleDown");
+                    return;
+                }
+                this.m_player.currentDirection = 4;
+                this.m_player.m_moving = true;
+                this.m_player.m_attack = false;
+                if(this.m_player.anims.currentAnim.key !== 'player_moveDown'){
+                    this.m_player.play("player_moveDown");
+                }
+                break;
+            default:
+                if (this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleLeft')
+                        this.m_player.play("player_idleLeft");
+                } else if (this.m_player.currentDirection == 3) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleUp')
+                        this.m_player.play("player_idleUp");
+                } else if (this.m_player.currentDirection == 4) {
+                    if(this.m_player.anims.currentAnim.key !== 'player_idleDown')
+                        this.m_player.play("player_idleDown");
+                }
+                break;
         }
 
         let vector = [0, 0];
@@ -215,10 +200,5 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         }
 
         this.m_player.move(vector);
-
-        this.prevLeftKeyState = this.m_cursorKeys.left.isDown;
-        this.prevRightKeyState = this.m_cursorKeys.right.isDown;
-        this.prevDownKeyState = this.m_cursorKeys.down.isDown;
-        this.prevUpKeyState = this.m_cursorKeys.up.isDown;
     }
 }
