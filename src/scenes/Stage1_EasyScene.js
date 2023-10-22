@@ -83,21 +83,21 @@ export default class Stage1_EasyScene extends Phaser.Scene {
 
         switch(true){
             case this.m_cursorKeys.space.isDown:
+                this.m_player.m_attack = true;
+                this.m_player.m_moving = false;
                 if (totalKeysPressed !== 1) {
                     if (this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
-                        if(this.m_player.anims.currentAnim.key !== 'player_idleLeft')
-                            this.m_player.play("player_idleLeft");
+                        if(this.m_player.anims.currentAnim.key !== 'player_attackLeft')
+                            this.m_player.play("player_attackLeft");
                     } else if (this.m_player.currentDirection == 3) {
-                        if(this.m_player.anims.currentAnim.key !== 'player_idleUp')
-                            this.m_player.play("player_idleUp");
+                        if(this.m_player.anims.currentAnim.key !== 'player_attackUp')
+                            this.m_player.play("player_attackUp");
                     } else if (this.m_player.currentDirection == 4) {
-                        if(this.m_player.anims.currentAnim.key !== 'player_idleDown')
-                            this.m_player.play("player_idleDown");
+                        if(this.m_player.anims.currentAnim.key !== 'player_attackDown')
+                            this.m_player.play("player_attackDown");
                     }
                     return;
                 }
-                this.m_player.m_attack = true;
-                this.m_player.m_moving = false;
                 if ( this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
                     if(this.m_player.anims.currentAnim.key !== 'player_attackLeft'){
                         this.m_player.play("player_attackLeft");
@@ -115,12 +115,6 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                 }
                 break;
             case this.m_cursorKeys.left.isDown:
-                if (totalKeysPressed !== 1) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_idleLeft'){
-                        this.m_player.play("player_idleLeft");
-                    }
-                    return;
-                }
                 this.m_player.currentDirection = 1;
                 this.m_player.m_moving = true;
                 this.m_player.m_attack = false;
@@ -129,11 +123,6 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                 }
                 break;
             case this.m_cursorKeys.right.isDown:
-                if (totalKeysPressed !== 1) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_idleLeft')
-                        this.m_player.play("player_idleLeft");
-                    return;
-                }
                 this.m_player.currentDirection = 2;
                 this.m_player.m_moving = true;
                 this.m_player.m_attack = false;
@@ -142,12 +131,6 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                 }
                 break;
             case this.m_cursorKeys.up.isDown:
-                if (totalKeysPressed !== 1) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_idleUp'){
-                        this.m_player.play("player_idleUp");
-                    }
-                    return;
-                }
                 this.m_player.currentDirection = 3;
                 this.m_player.m_moving = true;
                 this.m_player.m_attack = false;
@@ -156,11 +139,6 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                 }
                 break;
             case this.m_cursorKeys.down.isDown:
-                if (totalKeysPressed !== 1) {
-                    if(this.m_player.anims.currentAnim.key !== 'player_idleDown')
-                        this.m_player.play("player_idleDown");
-                    return;
-                }
                 this.m_player.currentDirection = 4;
                 this.m_player.m_moving = true;
                 this.m_player.m_attack = false;
