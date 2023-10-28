@@ -116,6 +116,10 @@ export default class LoadingScene extends Phaser.Scene {
             frameWidth: 149,
             frameHeight: 152,
         });
+        this.load.spritesheet("enemy2", enemy1Img, {
+            frameWidth: 149,
+            frameHeight: 152,
+        });
 
         // EFFECT
         this.load.spritesheet("explosion", explosionImg, {
@@ -242,6 +246,12 @@ export default class LoadingScene extends Phaser.Scene {
         this.anims.create({
             key: "enemy1_move",
             frames: this.anims.generateFrameNumbers("enemy1"),
+            frameRate: 20,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "enemy2_move",
+            frames: this.anims.generateFrameNumbers("enemy2"),
             frameRate: 20,
             repeat: -1,
         });

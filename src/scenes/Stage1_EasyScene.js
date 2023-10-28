@@ -64,6 +64,8 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         this.m_mobEvents = [];
         addMobEvent(1500, 650, this, 5000, "enemy1", "enemy1_move", 100, 0.8);
         addMobEvent(-500, 650, this, 5000, "enemy1", "enemy1_move", 100, 0.8);
+        addMobEvent(1500, 650, this, 10000, "enemy2", "enemy2_move", 100, 0.8);
+        addMobEvent(-500, 650, this, 10000, "enemy2", "enemy2_move", 100, 0.8);
 
         // Pause
         this.input.keyboard.on(

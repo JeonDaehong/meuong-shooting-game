@@ -17,9 +17,15 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
         this.m_canBeAttacked = true;
 
         if (texture === "enemy1") {
-            // mob 1만 바닥을 기준으로 움직이고 있습니다. 움직일 때 중심을 기준으로 움직이지 않고 오프셋을 설정한 곳에 기준으로 움직이게 해두었습니다. 아주 미묘한 차이입니다. 
-            this.setBodySize(100, 200);
-            this.setOffset(180, 140);
+            this.m_speed = 100;
+            this.scale = 0.5;
+            this.setBodySize(130, 120);
+            this.setOffset(15, 25);
+        } else if ( texture === "enemy2" ) {
+            this.m_speed = 50;
+            this.scale = 1.2;
+            this.setBodySize(130, 120);
+            this.setOffset(15, 25);
         }
 
         this.m_events = [];
