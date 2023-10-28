@@ -19,7 +19,10 @@ import playerAttackLeftImg from "../assets/spritesheets/playerAttackLeft.png";
 import playerAttackUpImg from "../assets/spritesheets/playerAttackUp.png";
 import stage1BgImg1 from "../assets/images/Stage1_Background.png";
 import stage1BgImg2 from "../assets/images/Stage1_Background2.png";
-import playerBulletImg from "../assets/images/PlayerAttack1.png";
+import playerBulletImgLeft from "../assets/images/PlayerAttack1.png";
+import playerBulletImgRight from "../assets/images/PlayerAttack2.png";
+import playerBulletImgUp from "../assets/images/PlayerAttack3.png";
+import playerBulletImgDown from "../assets/images/PlayerAttack4.png";
 import pauseSound from "../assets/sounds/PauseSound.mp3";
 import unPauseSound from "../assets/sounds/UnPauseSound.mp3";
 import stage1BossPhase1IdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_Idle.png";
@@ -38,7 +41,10 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.image("stage1BgImg2", stage1BgImg2);
 
         // Bullet
-        this.load.image("playerBullet", playerBulletImg);
+        this.load.image("playerBulletleft", playerBulletImgLeft);
+        this.load.image("playerBulletRight", playerBulletImgRight);
+        this.load.image("playerBulletUp", playerBulletImgUp);
+        this.load.image("playerBulletDown", playerBulletImgDown);
 
         // FONT
         this.load.bitmapFont("pixelFont", fontPng, fontXml);
