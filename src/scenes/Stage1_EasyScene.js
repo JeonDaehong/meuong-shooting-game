@@ -6,6 +6,7 @@ import Stage1_Boss from '../characters/Stage1_Boss';
 import Stage1_Boss_Hands from '../characters/Stage1_Boss_Hands';
 import Mob from "../characters/Mob";
 import { addMob, addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
+import { doAttackOneSet } from "../utils/attackManager";
 
 export default class Stage1_EasyScene extends Phaser.Scene {
     constructor() {
@@ -107,6 +108,19 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                         if(this.m_player.anims.currentAnim.key !== 'player_attackDown')
                             this.m_player.play("player_attackDown");
                     }
+
+                    if(this.m_player.currentDirection == 1){
+                        doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletleft");
+                    }
+                    if(this.m_player.currentDirection == 2){
+                        doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletRight");
+                    }
+                    if ( this.m_player.currentDirection == 3){
+                            doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletUp");
+                    }
+                    if(this.m_player.currentDirection == 4){
+                            doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletDown");
+                    }
                     return;
                 }
                 if ( this.m_player.currentDirection == 1 || this.m_player.currentDirection == 2) {
@@ -123,6 +137,19 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                     if(this.m_player.anims.currentAnim.key !== 'player_attackDown'){
                         this.m_player.play("player_attackDown");
                     }
+                }
+
+                if(this.m_player.currentDirection == 1){
+                    doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletleft");
+                }
+                if(this.m_player.currentDirection == 2){
+                    doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletRight");
+                }
+                if ( this.m_player.currentDirection == 3){
+                        doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletUp");
+                }
+                if(this.m_player.currentDirection == 4){
+                        doAttackOneSet(this, "bullet", 10, 0.1, this.m_player.currentDirection, "playerBulletDown");
                 }
                 break;
             case this.m_cursorKeys.left.isDown:
@@ -169,6 +196,7 @@ export default class Stage1_EasyScene extends Phaser.Scene {
                         this.m_player.play("player_idleDown");
                 }
                 break;
+            
         }
 
         let vector = [0, 0];
