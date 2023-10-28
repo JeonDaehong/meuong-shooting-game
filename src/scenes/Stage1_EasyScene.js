@@ -4,6 +4,8 @@ import Config from "../Config";
 import { pause } from "../utils/pauseManager";
 import Stage1_Boss from '../characters/Stage1_Boss';
 import Stage1_Boss_Hands from '../characters/Stage1_Boss_Hands';
+import Mob from "../characters/Mob";
+import { addMob, addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
 import { doAttackOneSet } from "../utils/attackManager";
 
 export default class Stage1_EasyScene extends Phaser.Scene {
@@ -52,6 +54,15 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         const backgroundImage2 = this.add.image(Config.width/2, (Config.height/2) - 150, 'stage1BgImg2');
         const backgroundImage1 = this.add.image(Config.width/2, (Config.height/2) + 70, 'stage1BgImg1');
         
+        // Enemy
+        this.m_mobs = this.physics.add.group();
+        // 맨 처음에 등장하는 몹을 수동으로 추가해줍니다.
+        // 추가하지 않으면 closest mob을 찾는 부분에서 에러가 발생합니다.
+        this.m_mobs.add(new Mob(this, 1500, 650, "enemy1", "enemy1_move", 10));
+        this.m_mobEvents = [];
+        addMobEvent(1500, 650, this, 5000, "enemy1", "enemy1_move", 10, 0.8);
+        addMobEvent(-500, 650, this, 5000, "enemy1", "enemy1_move", 10, 0.8);
+
         // Pause
         this.input.keyboard.on(
             "keydown-ESC",

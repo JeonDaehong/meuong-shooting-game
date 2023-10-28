@@ -28,6 +28,9 @@ import unPauseSound from "../assets/sounds/UnPauseSound.mp3";
 import stage1BossPhase1IdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_Idle.png";
 import stage1BossPhase1LeftHandIdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_LeftHand_Idle.png";
 import stage1BossPhase1RightHandIdleImg from "../assets/spritesheets/Stage1_Boss_Phase1_RightHand_Idle.png";
+import explosionOgg from "../assets/sounds/explosion.ogg";
+import explosionImg from "../assets/spritesheets/explosionImg.png";
+import enemy1Img from "../assets/spritesheets/Enemy1_angry.png";
 
 export default class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -94,6 +97,8 @@ export default class LoadingScene extends Phaser.Scene {
             frameWidth: 465,
             frameHeight: 466,
         });
+
+        // Enemy
         this.load.spritesheet("stage1BossPhase1Idle", stage1BossPhase1IdleImg, {
             frameWidth: 360,
             frameHeight: 348,
@@ -107,6 +112,17 @@ export default class LoadingScene extends Phaser.Scene {
             frameHeight: 216,
         });
 
+        this.load.spritesheet("enemy1", enemy1Img, {
+            frameWidth: 149,
+            frameHeight: 152,
+        });
+
+        // EFFECT
+        this.load.spritesheet("explosion", explosionImg, {
+            frameWidth: 388,
+            frameHeight: 382,
+        });
+
 
         // AUDIOS
         this.load.audio("mainBackgroundMusic", mainBackgroundMusic);
@@ -116,6 +132,7 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.audio("PlayerAttackSound", PlayerAttackSound);
         this.load.audio("pauseSound", pauseSound);
         this.load.audio("unPauseSound", unPauseSound);
+        this.load.audio("audio_explosion", explosionOgg);
     }
 
     create() {
@@ -192,6 +209,15 @@ export default class LoadingScene extends Phaser.Scene {
             repeat: -1,
         });
 
+        // EFFECT
+        this.anims.create({
+            key: "explode",
+            frames: this.anims.generateFrameNumbers("explosion"),
+            frameRate: 20,
+            repeat: 0,
+            hideOnComplete: true,
+        });
+
         // Boss
         this.anims.create({
             key: "stage1_boss_1phase_idle",
@@ -208,6 +234,14 @@ export default class LoadingScene extends Phaser.Scene {
         this.anims.create({
             key: "stage1_boss_1phase_rightHand_idle",
             frames: this.anims.generateFrameNumbers("stage1BossPhase1RightHandIdle"),
+            frameRate: 20,
+            repeat: -1,
+        });
+
+        // Enemy
+        this.anims.create({
+            key: "enemy1_move",
+            frames: this.anims.generateFrameNumbers("enemy1"),
             frameRate: 20,
             repeat: -1,
         });
