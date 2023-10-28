@@ -6,17 +6,16 @@ export default class PlayerBullet extends Phaser.Physics.Arcade.Sprite {
         super(scene, startingPosition[0], startingPosition[1], bulletImg);
 
         // beam의 속도, 지속시간을 적당히 설정해줍니다.
-        this.SPEED = 300;
-        this.DURATION = 1500;
-        //this.playerAttackSound = this.sound.add("PlayerAttackSound");
+        this.SPEED = 1000;
+        this.DURATION = 3000;
         
         scene.add.existing(this);
 
         scene.physics.world.enableBody(this);
         scene.m_weaponDynamic.add(this);
         
-        //this.playerAttackSound.play();
-        //this.playerAttackSound.setVolume(0.03);
+        scene.playerAttackSound.play();
+        scene.playerAttackSound.setVolume(0.1);
 
         this.m_damage = damage;
         this.scale = scale;

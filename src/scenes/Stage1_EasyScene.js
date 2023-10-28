@@ -22,6 +22,8 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         this.m_player.play("player_idleLeft");
 		this.m_cursorKeys = this.input.keyboard.createCursorKeys();
 
+        this.playerAttackSound = this.sound.add("PlayerAttackSound");
+
         this.boss = new Stage1_Boss(this);
         this.boss.play("stage1_boss_1phase_idle");
         this.bossLeftHand = new Stage1_Boss_Hands(this, (Config.width / 2) - 180, (Config.height / 2) - 200);
@@ -60,8 +62,8 @@ export default class Stage1_EasyScene extends Phaser.Scene {
         // 추가하지 않으면 closest mob을 찾는 부분에서 에러가 발생합니다.
         this.m_mobs.add(new Mob(this, 1500, 650, "enemy1", "enemy1_move", 10));
         this.m_mobEvents = [];
-        addMobEvent(1500, 650, this, 5000, "enemy1", "enemy1_move", 10, 0.8);
-        addMobEvent(-500, 650, this, 5000, "enemy1", "enemy1_move", 10, 0.8);
+        addMobEvent(1500, 650, this, 5000, "enemy1", "enemy1_move", 100, 0.8);
+        addMobEvent(-500, 650, this, 5000, "enemy1", "enemy1_move", 100, 0.8);
 
         // Pause
         this.input.keyboard.on(
