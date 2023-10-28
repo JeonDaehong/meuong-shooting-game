@@ -9,6 +9,8 @@ import buttonClickSound from "../assets/sounds/ButtonClickSound.mp3";
 import Stage1_Music from "../assets/sounds/1Stage_Music.mp3";
 import PlayerAttackSound from "../assets/sounds/PlayerAttackSound.mp3";
 import playerIdleLeftImg from "../assets/spritesheets/playerIdleLeft.png";
+import playerIdleUpImg from "../assets/spritesheets/playerIdleUp.png";
+import playerIdleDownImg from "../assets/spritesheets/playerIdleDown.png";
 import playerMoveDownImg from "../assets/spritesheets/playerMoveDown.png";
 import playerMoveLeftImg from "../assets/spritesheets/playerMoveLeft.png";
 import playerMoveUpImg from "../assets/spritesheets/playerMoveUp.png";
@@ -51,32 +53,40 @@ export default class LoadingScene extends Phaser.Scene {
             frameHeight: 424,
         });
         this.load.spritesheet("playerIdleLeft", playerIdleLeftImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
+        });
+        this.load.spritesheet("playerIdleUp", playerIdleUpImg, {
+            frameWidth: 465,
+            frameHeight: 466,
+        });
+        this.load.spritesheet("playerIdleDown", playerIdleDownImg, {
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerMoveDown", playerMoveDownImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerMoveLeft", playerMoveLeftImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerMoveUp", playerMoveUpImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerAttackDown", playerAttackDownImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerAttackLeft", playerAttackLeftImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("playerAttackUp", playerAttackUpImg, {
-            frameWidth: 422,
-            frameHeight: 424,
+            frameWidth: 465,
+            frameHeight: 466,
         });
         this.load.spritesheet("stage1BossPhase1Idle", stage1BossPhase1IdleImg, {
             frameWidth: 360,
@@ -129,17 +139,13 @@ export default class LoadingScene extends Phaser.Scene {
         });
         this.anims.create({
             key: "player_idleUp",
-            frames: this.anims.generateFrameNumbers("playerMoveUp", {
-                start: 0,
-                end: 0,}),
+            frames: this.anims.generateFrameNumbers("playerIdleUp"),
             frameRate: 15,
             repeat: -1,
         });
         this.anims.create({
             key: "player_idleDown",
-            frames: this.anims.generateFrameNumbers("playerMoveDown", {
-                start: 0,
-                end: 0,}),
+            frames: this.anims.generateFrameNumbers("playerIdleDown"),
             frameRate: 15,
             repeat: -1,
         });
