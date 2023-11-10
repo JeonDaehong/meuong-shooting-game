@@ -1,3 +1,3 @@
 # Meuong Shooting Game
 <hr>
-use javascript, phaser3 lib, Node.js
+## Use javascript, phaser3 lib, Node.js Game Project
