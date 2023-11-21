@@ -1,7 +1,5 @@
 # Meuong Shooting Game
 
-<hr>
-
 This project is a mini bullet-dodging game created using JavaScript and the Phaser 3 library.
 
 ## Overview
@@ -23,8 +21,6 @@ npm install
 <hr>
 
 # 뫼옹 슈팅 게임
-
-<hr>
 
 이 프로젝트는 JavaScript와 Phaser 3 라이브러리를 사용하여 만든 미니 총알 피하기 게임입니다.
 
