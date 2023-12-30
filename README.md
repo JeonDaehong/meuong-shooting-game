@@ -10,14 +10,6 @@ The game is built on the [Phaser 3](https://phaser.io/phaser3) library and runs 
 
 - [Node.js](https://nodejs.org/) must be installed.
 
-## Installation
-
-Clone the project and install the dependencies by running the following command:
-
-```bash
-npm install
-```
-
 <hr>
 
 # 뫼옹 슈팅 게임
@@ -31,11 +23,4 @@ npm install
 ## 요구 사항
 
 - [Node.js](https://nodejs.org/) 가 설치되어 있어야 합니다.
-
-## 설치
-
-프로젝트를 복제하고 다음 명령을 실행하여 종속성을 설치하세요:
-
-```bash
-npm install
 
